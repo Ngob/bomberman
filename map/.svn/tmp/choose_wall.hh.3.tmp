@@ -1,0 +1,48 @@
+<<<<<<< .mine
+//
+// choose_wall.hh for  in /home/ngo_b//rendu/proj/bomberman-2014-capot_r/map
+//
+// Made by benoit ngo
+// Login   <ngo_b@epitech.net>
+//
+// Started on  Tue May 31 02:17:57 2011 benoit ngo
+// Last update Tue May 31 02:25:34 2011 benoit ngo
+//
+
+#ifndef		__CHOSE_WALL_HH__
+# define	__CHOSE_WALL_HH__
+
+typedef struct	s_choose_wall
+{
+  EType	type;
+  Obj		*(AllWall::*ptr)(int i, int j) const;
+}			t_choose_wall;
+
+#endif		/*__CHOSE_WALL_HH__*/
+=======
+//
+// choose_wall.hh for  in /home/basset_a//workspace/bomberman-2014-capot_r/map
+//
+// Made by antoine basset
+// Login   <basset_a@epitech.net>
+//
+// Started on  Tue May 31 10:07:29 2011 antoine basset
+// Last update Tue May 31 10:13:03 2011 antoine basset
+//
+
+#ifndef		_CHOOSE_WALL_HH_
+# define	_CHOOSE_WALL_HH_
+
+#include	"AObj.hh"
+#include	"lineWall.hh"
+#include	"AllWall.hh"
+
+typedef struct		s_choose_wall
+{
+  EType type;
+  Obj           *(AllWall::*ptr)(int i, int j);
+}                       t_choose_wall;
+
+
+#endif		/*_CHOOSE_WALL_HH_*/
+>>>>>>> .r40

@@ -1,0 +1,72 @@
+//
+// map.hh for map in /u/all/ngo_b/cu/rendu/projetTek2/cpp/bomber/map
+//
+// Made by benoit ngo
+// Login   <ngo_b@epitech.net>
+//
+// Started on  Wed May 11 20:39:02 2011 benoit ngo
+<<<<<<< .mine
+// Last update Tue May 31 17:18:52 2011 benoit ngo
+=======
+// Last update Tue May 31 17:12:47 2011 antoine basset
+>>>>>>> .r66
+//
+
+// compil : g++ AObj.cpp AllWall.cpp lineWall.cpp empty.cpp Wall.cpp main.cpp map.cpp
+
+#ifndef		__MAP_HH__
+# define	__MAP_HH__
+
+#include	<vector>
+#include	<fstream>
+#include	<sstream>
+#include	<iostream>
+#include	<string>
+#include	"AObj.hh"
+#include	"lineWall.hh"
+#include	"AllWall.hh"
+
+// je me suis permis de deplacer tes methode dans AllWall.cpp
+
+class			Map
+{
+  int			_size_x;
+  int			_size_y;
+  int			_nb_players;
+  AllWall      		_wall;
+
+public:
+
+  Map(const std::string & n);
+  Map(const int, const int);
+  // si le n = "" alors on buld random,
+  //sinon on build avec le nom du fichier
+  ~Map();
+
+<<<<<<< .mine
+  void			setObj(const int, const int, const EType);
+=======
+  void				findPlayerPos(int & x, int & y);
+  void				addPlayer();
+  bool				CanBePlaced(int i, int j);
+
+>>>>>>> .r66
+  void			deleteObj(const int, const int);
+  void			setObj(Obj *, const int, const int);
+  Obj *			getObj(const int, const int);
+  int			get_sizeX() const;
+  int			get_sizeY() const;
+
+  void			setAllWall(AllWall const & other);
+  void			setCoord(int x, int y);
+  void			getCoord(int & x, int & y) const;
+  AllWall		getAllWall() const;
+
+  Map &		operator=(Map const & other);
+
+};
+
+
+
+
+#endif		/*__MAP_HH__*/

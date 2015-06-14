@@ -1,0 +1,110 @@
+//
+// APlayer.cpp for  in /home/capot_r//tek2/cpp/proj/bomberman-2014-capot_r
+//
+// Made by romain capot
+// Login   <capot_r@epitech.net>
+//
+// Started on  Thu May 26 11:06:01 2011 romain capot
+// Last update Sat Jun  4 15:44:59 2011 benoit ngo
+//
+
+#include	"APlayer.hh"
+
+APlayer::APlayer(int x, int y, APlayer::ePlayerType type, Map * map, int blockSize)
+  : _x(x), _y(y), _type(type), _dir(dir::FRONT), _map(map), _isAlive(true), _score(0)
+{
+  _mod = new ModPlayer(_map->get_sizeX(), _map->get_sizeY(), blockSize);
+  if (type == PLAYER1)
+    this->_mod->setColor(142, 42, 42);
+  else if (type == PLAYER2)
+    this->_mod->setColor(42, 142, 142);
+  else
+    this->_mod->setColor(0, 0, 0);
+  _bomb = new Bomb(map->get_sizeX(), map->get_sizeY(), blockSize, map);
+}
+
+APlayer::~APlayer()
+{
+}
+
+void		APlayer::setScore(int score)
+{
+  _score = score;
+}
+
+int		APlayer::getScore() const
+{
+  return _score;
+}
+
+void		APlayer::addScore(int score)
+{
+  _score += score;
+}
+
+void		APlayer::setXY(int newx, int newy)
+0{
+  this->_x = newx;
+  this->_y = newy;
+}
+
+int		APlayer::getX() const
+{
+  return this->_x;
+}
+
+int		APlayer::getY() const
+{
+  return this->_y;
+}
+
+int		APlayer::getMapX() const
+{
+  return _map->get_sizeX();
+}
+
+int		APlayer::getMapY() const
+{
+  return _map->get_sizeY();
+}
+
+APlayer::ePlayerType	APlayer::getType() const
+{
+  return this->_type;
+}
+
+dir::eDir	APlayer::getDir() const
+{
+  return this->_dir;
+}
+
+void		APlayer::setX(int x)
+{
+  this->_x = x;
+}
+
+void		APlayer::setY(int y)
+{
+  this->_y = y;
+}
+
+Bomb *		APlayer::getBomb() const
+{
+  return _bomb;
+}
+
+bool		APlayer::getAlive() const
+{
+  return _isAlive;
+}
+
+void		APlayer::setAlive(bool status)
+{
+  _isAlive = status;
+}
+
+void		APlayer::draw()
+{
+  _mod->draw(_x, _y, _dir);
+  _bomb->draw();
+}

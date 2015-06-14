@@ -1,0 +1,182 @@
+//
+// map.cpp for  in /home/ngo_b//rendu/proj/bomberman-2014-capot_r/map
+//
+// Made by benoit ngo
+// Login   <ngo_b@epitech.net>
+//
+// Started on  Thu May 26 22:33:53 2011 benoit ngo
+<<<<<<< .mine
+// Last update Tue May 31 17:33:42 2011 benoit ngo
+=======
+// Last update Tue May 31 17:20:18 2011 antoine basset
+>>>>>>> .r68
+//
+
+#include	"map.hh"
+
+void			Map::setObj(const int x, const int y,
+				    const EType t)
+{
+  Obj *		       o;
+
+  if (t == PERSO)
+    {
+      o = this->getObj(x, y);
+      o->setType(PERSO);
+    }
+  else
+    {
+      o = this->_wall.find_the_type(t + '0', x, y);
+      if (o != NULL)
+	this->_wall.add_object(o, x, y);
+    }
+}
+
+bool			Map::CanBePlaced(int i, int j)
+{
+  bool			check = false;
+  int			a = 0;
+  Obj			*on = _wall._wall[i].getWall(j);
+
+  if (on->get_type() == EMPTY)
+    {
+      if (i > 1)
+	{
+	  Obj			*up = _wall._wall[i - 1].getWall(j);
+	  if (up->get_type() == EMPTY)
+	    a++;
+	}
+      if (i < this->_size_y)
+	{
+	  Obj			*down = _wall._wall[i + 1].getWall(j);
+	  if (down->get_type() == EMPTY)
+	    a++;
+	}
+      if (j > 1)
+	{
+	  Obj			*av = _wall._wall[i].getWall(j - 1);
+	  if (av->get_type() == EMPTY)
+	    a++;
+	}
+      if (j < this->_size_x)
+	{
+	  Obj			*ap = _wall._wall[i].getWall(j + 1);;
+	  if (ap->get_type() == EMPTY)
+	    a++;
+	}
+    }
+  if (a >= 3)
+    check = true;
+  return check;
+}
+
+void			Map::addPlayer(int & x, int & y)
+{
+  this->findPlayerPos(x, y);
+  Obj			*ap = _wall._wall[y].getWall(x);;
+  ap->setType(PERSO);
+  _wall._wall[y].setWall(x, ap);
+}
+
+void		       Map::findPlayerPos(int & x, int & y)
+{
+  for (int i = 0; i < this->_size_y; ++i)
+    {
+      for (int j = 0; j < this->_size_x; ++j)
+	{
+	  if (this->_nb_players == 0)
+	    {
+	      if (this->CanBePlaced(i, j) == true)
+		{
+		  x = j;
+		  y = i;
+		  return ;
+		}
+	      else
+		{
+		  if (this->CanBePlaced(i, j) == true)
+		    {
+		      x = j;
+		      y = i;
+		      return ;
+		    }
+		}
+	    }
+	}
+    }
+}
+
+int			Map::get_sizeX() const
+{
+  return (this->_size_x);
+}
+
+int			Map::get_sizeY() const
+{
+  return (this->_size_y);
+}
+
+AllWall  		Map::getAllWall() const
+{
+  return (this->_wall);
+}
+
+void           Map::getCoord(int & x, int & y) const
+{
+  x = _size_x;
+  y = _size_y;
+}
+
+Map &	Map::operator=(Map const & other)
+{
+  if (&other != this)
+    {
+      other.getCoord(_size_x, _size_y);
+      _wall = other.getAllWall();
+    }
+  return (*this);
+}
+
+Obj *		Map::getObj(const int x, const int y)
+{
+  return (this->_wall.getWall(x, y));
+}
+
+Map::Map(const std::string & s)
+{
+  this->_nb_players = 0;
+  this->_wall.parseFile(s);
+  this->_size_x = this->_wall.get_sizeX();
+  this->_size_y = this->_wall.get_sizeY();
+}
+
+Map::Map(const int size_x, const int size_y):
+  _size_x(size_x), _size_y(size_y)
+{
+  this->_wall.build_random(size_x, size_y);
+}
+
+void			Map::setObj(Obj * o, const int x, const int y)
+{
+  if (x < this->_size_x && y < this->_size_y
+      && x >= 0 && y >= 0)
+    this->_wall.add_object(o, x, y);
+}
+
+void			Map::deleteObj(const int x, const int y)
+{
+  if (x < this->_size_x && y < this->_size_y
+      && x >= 0 && y >= 0)
+  this->_wall.deleteWall(x, y);
+}
+void			Map::setAllWall(AllWall const & other)
+{
+  _wall = other;
+}
+
+
+Map::~Map()
+{
+
+}
+
